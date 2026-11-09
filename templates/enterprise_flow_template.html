@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{FLOW_TITLE}} - Reconstructed via Craft Anything</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #08090d; color: #f1f5f9; }
+    .glass-card { background: linear-gradient(145deg, #11151f 0%, #0d1017 100%); border: 1px solid #1e2638; }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-10 flex flex-col items-center justify-center">
+  <div class="w-full max-w-4xl space-y-7">
+    <!-- Header -->
+    <div class="text-center space-y-2">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-orange-500/10 text-orange-400 border border-orange-500/30">
+        <span>⚙️</span> Clean-Room Reconstructed Studio
+      </div>
+      <h1 class="text-3xl font-black text-white tracking-tight">{{FLOW_TITLE}}</h1>
+      <p class="text-xs text-slate-400 max-w-lg mx-auto">Automated dependency extraction • Multi-stage state validation • Zero proprietary code</p>
+    </div>
+
+    <!-- Interactive Stepper Progress Header -->
+    <div class="glass-card rounded-2xl p-6">
+      <div class="flex items-center justify-between relative max-w-2xl mx-auto">
+        <div class="absolute left-8 right-8 top-5 h-1 bg-slate-800 -translate-y-1/2 z-0"></div>
+        <div id="progressFill" class="absolute left-8 top-5 h-1 bg-gradient-to-r from-orange-500 to-amber-500 -translate-y-1/2 transition-all duration-300 z-0" style="width: 0%;"></div>
+
+        <!-- Step 1 Button -->
+        <div class="relative z-10 flex flex-col items-center gap-2">
+          <button id="stepBtn1" class="w-10 h-10 rounded-full font-bold text-xs bg-orange-500 text-white flex items-center justify-center border-4 border-[#08090d] shadow-lg shadow-orange-500/30">
+            1
+          </button>
+          <span class="text-xs font-bold text-white">Account & Org</span>
+        </div>
+
+        <!-- Step 2 Button -->
+        <div class="relative z-10 flex flex-col items-center gap-2">
+          <button id="stepBtn2" class="w-10 h-10 rounded-full font-bold text-xs bg-slate-800 text-slate-400 flex items-center justify-center border-4 border-[#08090d]">
+            2
+          </button>
+          <span class="text-xs font-medium text-slate-400">Cluster Specs</span>
+        </div>
+
+        <!-- Step 3 Button -->
+        <div class="relative z-10 flex flex-col items-center gap-2">
+          <button id="stepBtn3" class="w-10 h-10 rounded-full font-bold text-xs bg-slate-800 text-slate-400 flex items-center justify-center border-4 border-[#08090d]">
+            3
+          </button>
+          <span class="text-xs font-medium text-slate-400">Security & Review</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Form & Provisioning Summary Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <!-- Left 3 Cols: Form Steps Panel -->
+      <div class="lg:col-span-3 glass-card rounded-2xl p-7 flex flex-col justify-between">
+        <!-- Step 1 Content -->
+        <div id="stepContent1" class="space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="text-base font-bold text-white">Stage 1: Organization Identification</h2>
+            <p class="text-xs text-slate-400">Define tenant namespace and administrative owner</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Workspace Organization Name</label>
+            <input type="text" id="orgName" value="Quantum-Labs-Edge" oninput="syncSummary()" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-orange-500 transition-colors">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Security Administrator Email</label>
+            <input type="email" id="adminEmail" value="ops@quantumlabs.ai" oninput="syncSummary()" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-orange-500 transition-colors">
+          </div>
+        </div>
+
+        <!-- Step 2 Content -->
+        <div id="stepContent2" class="space-y-4 hidden">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="text-base font-bold text-white">Stage 2: Cluster Topology</h2>
+            <p class="text-xs text-slate-400">Select datacenter zone and hardware tier</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Cloud Deployment Zone</label>
+            <select id="regionSelect" onchange="syncSummary()" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-orange-500 transition-colors">
+              <option value="US-East (N. Virginia)">US-East (N. Virginia)</option>
+              <option value="EU-Central (Frankfurt)">EU-Central (Frankfurt)</option>
+              <option value="AP-South (Mumbai)">AP-South (Mumbai)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Compute Architecture Tier</label>
+            <div class="space-y-2.5">
+              <label class="flex items-start gap-3 text-xs p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-orange-500/40 transition-colors">
+                <input type="radio" name="nodeTier" value="Edge Local (4GB VRAM / 16GB RAM)" checked onchange="syncSummary()" class="mt-0.5 text-orange-500">
+                <div>
+                  <div class="font-bold text-white">Edge Local • 4GB VRAM / 16GB RAM</div>
+                  <div class="text-[11px] text-slate-400">Quantized local runtime with zero cloud API expense</div>
+                </div>
+              </label>
+
+              <label class="flex items-start gap-3 text-xs p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-orange-500/40 transition-colors">
+                <input type="radio" name="nodeTier" value="Workstation (RTX 4070 12GB)" onchange="syncSummary()" class="mt-0.5 text-orange-500">
+                <div>
+                  <div class="font-bold text-white">Dedicated Workstation • RTX 4070 12GB</div>
+                  <div class="text-[11px] text-slate-400">High throughput batch rebuilding for complex desktop tools</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 Content -->
+        <div id="stepContent3" class="space-y-4 hidden">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="text-base font-bold text-white">Stage 3: Security & Verification</h2>
+            <p class="text-xs text-slate-400">Compliance policies and recovery parameters</p>
+          </div>
+
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 text-xs text-slate-300 cursor-pointer p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+              <input type="checkbox" id="encryptionCheck" checked onchange="syncSummary()" class="rounded text-orange-500">
+              <span>Enforce AES-256 Volume Encryption at Rest</span>
+            </label>
+
+            <label class="flex items-center gap-3 text-xs text-slate-300 cursor-pointer p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+              <input type="checkbox" id="cleanRoomCheck" checked onchange="syncSummary()" class="rounded text-orange-500">
+              <span>Strict Zero-Telemetry Mode (Clean-Room Verified)</span>
+            </label>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Automated Snapshot Retention</label>
+            <input type="number" id="retentionDays" value="30" oninput="syncSummary()" class="w-full text-xs px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-orange-500 transition-colors">
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex items-center justify-between pt-6 border-t border-slate-800 mt-6">
+          <button id="prevBtn" onclick="prevStep()" disabled class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 text-slate-500 cursor-not-allowed">
+            Previous
+          </button>
+          <button id="nextBtn" onclick="nextStep()" class="px-5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white shadow-lg shadow-orange-500/20 transition-all cursor-pointer">
+            Continue →
+          </button>
+        </div>
+      </div>
+
+      <!-- Right 2 Cols: Production Provisioning Summary (Clean Published Format) -->
+      <div class="lg:col-span-2 glass-card rounded-2xl p-7 flex flex-col justify-between">
+        <div class="space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-white">Cluster Summary</h3>
+              <p class="text-[11px] text-slate-400">Configured provisioning manifest</p>
+            </div>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">VALIDATED</span>
+          </div>
+
+          <!-- Summary Items -->
+          <div class="space-y-3.5 text-xs">
+            <div class="flex justify-between items-start">
+              <span class="text-slate-400 font-medium">Organization:</span>
+              <span class="text-white font-bold text-right" id="sumOrg">Quantum-Labs-Edge</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <span class="text-slate-400 font-medium">Admin:</span>
+              <span class="text-slate-300 font-mono text-[11px] text-right" id="sumAdmin">ops@quantumlabs.ai</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <span class="text-slate-400 font-medium">Deployment Zone:</span>
+              <span class="text-slate-200 font-medium text-right" id="sumRegion">US-East (N. Virginia)</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <span class="text-slate-400 font-medium">Compute Tier:</span>
+              <span class="text-orange-400 font-bold text-right" id="sumTier">Edge Local (4GB VRAM)</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <span class="text-slate-400 font-medium">Security Mode:</span>
+              <span class="text-emerald-400 font-medium text-right" id="sumSecurity">AES-256 • Zero Telemetry</span>
+            </div>
+          </div>
+
+          <!-- Cost Metric Banner -->
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex justify-between items-baseline mb-1">
+              <span class="text-xs text-slate-400 font-medium">Estimated Bill:</span>
+              <span class="text-xl font-black text-emerald-400">$0.00 / mo</span>
+            </div>
+            <p class="text-[10px] text-slate-500">100% Free Local Orchestration via Google Antigravity & Ollama</p>
+          </div>
+        </div>
+
+        <!-- Compliance Seal -->
+        <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Clean-Room Compliant
+          </span>
+          <span class="font-mono text-slate-400">v0.3.0 Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deployment Success Notification Modal -->
+  <div id="deploySuccessModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-emerald-500/40">
+      <div class="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-2xl flex items-center justify-center mx-auto">
+        ✓
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white">Cluster Provisioned</h3>
+        <p class="text-xs text-slate-400 mt-1">Multi-step wizard state validated and deployed into local mesh.</p>
+      </div>
+      <div class="p-3 rounded-xl bg-slate-900 text-left text-xs font-mono text-slate-300 space-y-1">
+        <div><span class="text-slate-500">Status:</span> <span class="text-emerald-400 font-bold">200 READY</span></div>
+        <div><span class="text-slate-500">Cluster ID:</span> edge-craft-01</div>
+        <div><span class="text-slate-500">Telemetry:</span> 0ms local ping</div>
+      </div>
+      <button onclick="document.getElementById('deploySuccessModal').classList.add('hidden')" class="w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-500 hover:bg-emerald-600 text-white transition-colors cursor-pointer">
+        Return to Studio
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function syncSummary() {
+      document.getElementById('sumOrg').innerText = document.getElementById('orgName').value || 'Unset';
+      document.getElementById('sumAdmin').innerText = document.getElementById('adminEmail').value || 'Unset';
+      document.getElementById('sumRegion').innerText = document.getElementById('regionSelect').value;
+
+      const tierRadio = document.querySelector('input[name="nodeTier"]:checked');
+      document.getElementById('sumTier').innerText = tierRadio ? tierRadio.value.split('•')[0].trim() : 'Edge Local';
+
+      const enc = document.getElementById('encryptionCheck').checked;
+      const clean = document.getElementById('cleanRoomCheck').checked;
+      let secText = [];
+      if (enc) secText.push("AES-256");
+      if (clean) secText.push("Clean-Room");
+      document.getElementById('sumSecurity').innerText = secText.join(" • ") || "Standard";
+    }
+
+    function renderStep() {
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById(`stepContent${i}`).classList.add('hidden');
+        const btn = document.getElementById(`stepBtn${i}`);
+        if (i < currentStep) {
+          btn.className = "w-10 h-10 rounded-full font-bold text-xs bg-emerald-500 text-white flex items-center justify-center border-4 border-[#08090d]";
+          btn.innerText = "✓";
+        } else if (i === currentStep) {
+          btn.className = "w-10 h-10 rounded-full font-bold text-xs bg-orange-500 text-white flex items-center justify-center border-4 border-[#08090d] shadow-lg shadow-orange-500/30";
+          btn.innerText = i;
+        } else {
+          btn.className = "w-10 h-10 rounded-full font-bold text-xs bg-slate-800 text-slate-400 flex items-center justify-center border-4 border-[#08090d]";
+          btn.innerText = i;
+        }
+      }
+      document.getElementById(`stepContent${currentStep}`).classList.remove('hidden');
+
+      const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+      document.getElementById('progressFill').style.width = `${progress}%`;
+
+      const prevBtn = document.getElementById('prevBtn');
+      if (currentStep === 1) {
+        prevBtn.disabled = true;
+        prevBtn.className = "px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 text-slate-500 cursor-not-allowed";
+      } else {
+        prevBtn.disabled = false;
+        prevBtn.className = "px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition-colors cursor-pointer";
+      }
+
+      const nextBtn = document.getElementById('nextBtn');
+      if (currentStep === totalSteps) {
+        nextBtn.innerText = "Deploy Cluster ✓";
+        nextBtn.className = "px-5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white transition-colors cursor-pointer shadow-lg shadow-emerald-500/20";
+      } else {
+        nextBtn.innerText = "Continue →";
+        nextBtn.className = "px-5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white transition-colors cursor-pointer";
+      }
+      syncSummary();
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        renderStep();
+      } else {
+        document.getElementById('deploySuccessModal').classList.remove('hidden');
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    renderStep();
+  </script>
+</body>
+</html>

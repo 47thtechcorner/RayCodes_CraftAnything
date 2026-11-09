@@ -1,0 +1,21 @@
+{
+  "flow_name": "Cloud Cluster Provisioning Wizard",
+  "steps": [
+    {
+      "step": 1,
+      "title": "Account & Org",
+      "fields": ["organization_name", "admin_email"]
+    },
+    {
+      "step": 2,
+      "title": "Cluster Topology",
+      "fields": ["region_select", "compute_tier_radio"]
+    },
+    {
+      "step": 3,
+      "title": "Security & Verification",
+      "fields": ["aes256_encryption_checkbox", "clean_room_mode_checkbox", "snapshot_retention_days"]
+    }
+  ]
+}
+

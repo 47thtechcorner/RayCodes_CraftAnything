@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Legacy Cloud Operations Portal (Bootstrap 3)</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    body { background-color: #f4f6f9; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding: 20px; }
+    .navbar-inverse { background-color: #222d32; border-color: #1a2226; }
+    .kpi-card { background: #fff; padding: 15px; border-top: 3px solid #3c8dbc; border-radius: 4px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header"><a class="navbar-brand" href="#">CloudOps Legacy Portal</a></div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Admin User</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-3">
+      <div class="kpi-card">
+        <h4>Active Instances</h4>
+        <h2 class="text-primary">1,428</h2>
+        <small class="text-success">+12% vs last week</small>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="kpi-card" style="border-top-color: #00a65a;">
+        <h4>Cluster Health</h4>
+        <h2 class="text-success">99.98%</h2>
+        <small class="text-muted">Zero critical alerts</small>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="kpi-card" style="border-top-color: #f39c12;">
+        <h4>Bandwidth</h4>
+        <h2 class="text-warning">48.2 TB</h2>
+        <small class="text-warning">82% of monthly cap</small>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="kpi-card" style="border-top-color: #dd4b39;">
+        <h4>Pending Tickets</h4>
+        <h2 class="text-danger">19</h2>
+        <small class="text-danger">3 requires escalation</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Global Node Status</div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr><th>Instance ID</th><th>Region</th><th>CPU Load</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>srv-us-east-01</td><td>us-east-1a</td><td>24.5%</td><td><span class="label label-success">HEALTHY</span></td></tr>
+        <tr><td>srv-eu-central-04</td><td>eu-central-1b</td><td>78.1%</td><td><span class="label label-warning">HIGH LOAD</span></td></tr>
+        <tr><td>srv-ap-south-02</td><td>ap-south-1a</td><td>14.2%</td><td><span class="label label-success">HEALTHY</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
